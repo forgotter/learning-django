@@ -1,0 +1,93 @@
+<head>
+    <title>
+        NITS CIT EXAM
+    </title>
+    <style>
+        #attempt {
+            position: fixed;
+            top: 1%;
+            right: 2%;
+            background: lightblue;
+        }
+    </style>
+    <script>
+        var attempted_questions = 0;
+        var check = new Array(151);
+        for (let i=0; i<=150; i++) check[i] = false;
+
+        function countMe(name) {
+            attempted_questions = 0;
+            check[name] = true;
+            for (let i=1; i<=150; i++) {
+                if(check[i])
+                    attempted_questions += 1
+            }            
+            document.getElementById('attempt').innerHTML = "You have attempted "+attempted_questions +" questions";
+        }
+
+        function clearMe(name){
+            ele = document.getElementsByName(name);
+            for (var i=0; i<ele.length; i++)
+                ele[i].checked = false;
+            
+            check[name] = false;
+            attempted_questions = 0;
+            for (let i = 1; i <= 150; i++) {
+                if (check[i])
+                    attempted_questions += 1
+            }
+
+            document.getElementById('attempt').innerHTML = "You have attempted " + attempted_questions + " questions";
+        }
+
+        function validate() {
+            if(document.forms['mform']['name'].value == "") {
+                alert("Please write your name");
+                return false;
+            }
+            if (document.forms['mform']['roll'].value == "" || Number.isInteger(document.forms['mform']['id'].value)) {
+                alert("Please check your roll no");
+                return false;
+            }
+            if(attempted_questions > 40) {
+                alert('You have marked more than 40 questions');
+                return false;
+            }
+            return true;
+        }
+        
+    </script>
+</head>
+<body>
+    <form name='mform' action="{% url 'exam:SubmitTest' %}" method='post' %}  onsubmit="return validate()" >
+        {% csrf_token %}
+        <fieldset>
+            <legend>Personal Details</legend>
+            <p>
+                <label for='name'>Name</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="text" id='name' name='name' placeholder="Enter your name here">
+            </p>
+            <p>
+                <label for='roll'>Roll No</label>&nbsp;&nbsp;&nbsp;
+                <input type="number" id='roll' name='roll' placeholder="Roll No (e.g. 171100)">
+            </p>
+        </fieldset>
+        <fieldset >
+            <legend>Questions</legend>
+            {% for question in questions %}
+                <div>
+                    <p>{{forloop.counter}}.&nbsp; {{question.question_text}} </p>
+                    <input type='radio' name='{{question.id}}' value="{{question.optionA}}" onclick=countMe({{question.id}}) > {{question.optionA}}
+                    <input type='radio' name='{{question.id}}' value="{{question.optionB}}" onclick=countMe({{question.id}}) > {{question.optionB}}
+                    <input type='radio' name='{{question.id}}' value="{{question.optionC}}" onclick=countMe({{question.id}}) > {{question.optionC}}
+                    <input type='radio' name='{{question.id}}' value="{{question.optionD}}" onclick=countMe({{question.id}}) > {{question.optionD}}
+                    <br><button type="button" onclick=clearMe({{question.id}}) >Clear</button>
+                </div>
+                <br>
+                <br>
+            {% endfor %}
+        </fieldset>
+        <div id='attempt'> you have attempted 0 questions </div>
+        <input type='submit' value='Finish Test'>
+    </form>
+</body>

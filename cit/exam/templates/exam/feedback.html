@@ -1,0 +1,40 @@
+<title>
+    Feedback Form
+</title>
+<body>
+    <form name='Feedback' action='{% url 'exam:TestOver' %}' method="POST">
+        {% csrf_token %}
+        <div>
+            <p>How was the course ?</p>
+            <textarea id='q1' name='q1' rows='4' cols='180'>
+                Enter what you think about NIT CIT program
+            </textarea>
+        </div>
+        <div>
+            <p>How was the content of the course ?</p>
+            <textarea id='q2' name='q2' rows='5' cols='180'>
+                Word, Excel, Powerpoint, Basic windows usage, was it taught properly and topics were covered.
+            </textarea>
+        </div>
+        <div>
+            <p>What changes should be made in course structure and how it was organized ?</p>
+            <textarea id='q3' name='q3' rows='6' cols='180'>
+                Write your suggestions about the course
+            </textarea>
+        </div>
+        <div>
+            <p>Feedback on teachers?</p>
+            <textarea id='q4' name='q4' rows='3' cols='180'>
+                Mention how well the teachers covered the course and how was your interaction with them
+            </textarea>
+        </div>
+        <div>
+            <p>How was your attendance in the course ?</p>
+            <textarea id='q5' name='q5' rows='3' cols='180'>
+                Mention the reasons and problems which afftected your attendance
+            </textarea>
+        </div>
+
+        <input type='submit' value='submit'>
+    </form>
+</body>
