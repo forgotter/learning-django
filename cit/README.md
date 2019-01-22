@@ -5,6 +5,8 @@ It is an online method to take MCQ based examinations. The set of questions can 
 
 The project was developed out of curiosity and to avoid taking exam via paper-pen method and also to provide students to choose their own set of questions.
 
+![Test Screen Image] (Image.png)
+
 # To-Do
 - Add documentation
 - Add Unit tests
