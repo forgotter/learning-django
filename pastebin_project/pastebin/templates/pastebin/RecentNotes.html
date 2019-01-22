@@ -1,0 +1,9 @@
+{% extends "pastebin/base.html" %}
+{% block title %} Recent Notes {% endblock %}
+
+{% block content %}
+    {% for note in notes %}
+    <li> <a href="{% url 'pastebin:view_note' note.id %}" > {{note.title}} </a> </li>
+    {% endfor %}
+    <a href="{% url 'pastebin:add_note' %}">Add a new note</a>
+{% endblock %}

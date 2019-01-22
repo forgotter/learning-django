@@ -1,0 +1,11 @@
+{% extends "pastebin/base.html" %}
+{% block title %} Note :: {{note.id}} {% endblock %}
+
+{% block content %}
+<p>Title : {{note.title}} </p>
+<div> {{note.text|linebreaks}} </div>
+<a href="{% url 'pastebin:update_note' note.id %}">Update</a><br>
+<a href="{% url 'pastebin:delete_note' note.id %}">Delete</a><br>
+<a href="{% url 'pastebin:add_note' %}">Add a new note</a><br>
+<a href="{% url 'pastebin:recent_notes'%}">Recent Notes</a>
+{% endblock %}

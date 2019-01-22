@@ -1,0 +1,11 @@
+{% extends "pastebin/base.html" %}
+{% block title %} Add a new Note {% endblock %}
+
+{% block content %}
+    <form action="{% url 'pastebin:add_note' %}" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Create Note">
+    </form>
+    <a href="{% url 'pastebin:recent_notes' %}">cancel</a>
+{% endblock %}

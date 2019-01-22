@@ -1,0 +1,21 @@
+{% extends "pastebin/base.html" %}
+{% block title %} Update your note {% endblock %}
+
+{% block content %}
+<form action="{% url 'pastebin:update_note' form.id %}" method="POST">
+    {% csrf_token %}
+    <p>
+    <label for="Enter a title">Title : </label>&nbsp;&nbsp;&nbsp;&nbsp;
+    <input name="title" type="text" value="{{form.title}}">
+    </p>
+
+    <p>
+    <label for="Enter your note">Note : </label>&nbsp;&nbsp;&nbsp;&nbsp;
+    <textarea name="text" rows=10 cols=50>{{form.text}}</textarea>
+    </p>
+    <input type="submit" value="Update">
+</form>
+<a href="{% url 'pastebin:delete_note' form.id %}">Delete</a>
+<br>
+<a href="{% url 'pastebin:recent_notes' %}">Recent Notes</a>
+{% endblock %}
